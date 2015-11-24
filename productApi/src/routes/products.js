@@ -14,6 +14,6 @@ function * get (next) {
 }
 
 module.exports = {
-  get,
-  post
+  get: get,
+  post: post
 }

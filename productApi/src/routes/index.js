@@ -1,19 +1,9 @@
-/* Define the ROUTING */
-var Router = require('koa-router')
+const Router = require('koa-router')
 
-var basicAuth = require('./auth').basicAuth
-var products = require('./products')
+const products = require('./products')
 
-var router = {
-  public: new Router(),
-  secured: new Router()
-}
-
-/* Public routes */
-router.public.get('/', products.get)
-
-/* Secured routes */
-router.secured.post('/', basicAuth, products.post)
+const router = new Router()
+router.get('/products', products.get)
+router.post('/products', products.post)
 
 module.exports = router
-

@@ -1,6 +1,4 @@
-var config = {}
-
-config.dbConnectionString = process.env.DB_CONNECTION_STRING || 'mysql://root@localhost:3306/test'
-config.port = process.env.PORT || 19386
-
-module.exports = config
+module.exports = {
+  dbConnectionString: `postgres://${process.env.PG_USER || process.env.USER}:${process.env.PG_PASSWORD}@localhost:5432/${process.env.PG_DATABASE || 'training'}`,
+  port: process.env.PORT || 19386
+}

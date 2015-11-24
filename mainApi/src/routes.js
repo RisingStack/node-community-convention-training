@@ -2,7 +2,7 @@
 
 const Router = require('koa-router')
 const jwt = require('koa-jwt')
-const config = require('./config')
+const config = require('../config')
 
 const jwtMiddleware = jwt({
   secret: config.jwtSecret,

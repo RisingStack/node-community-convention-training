@@ -16,4 +16,3 @@ function define (connection) {
 }
 
 module.exports = define
-

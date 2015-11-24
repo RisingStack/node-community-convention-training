@@ -9,5 +9,6 @@ var connection = new Sequelize(config.dbConnectionString)
 var Product = require('./product')(connection)
 
 module.exports = {
-  Product
+  Product,
+  sync: connection.sync
 }
