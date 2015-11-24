@@ -33,9 +33,12 @@
 </div>
 
 <script type="text/javascript">
-  var mainApiUrl = 'http://localhost:6647/'
   angular
     .module('myApp', [])
+    .run(function($http) {
+      $http.defaults.headers.common.Authorization = 'Bearer ' +
+        window.globals.token
+    })
     .config(function($interpolateProvider) {
       $interpolateProvider.startSymbol('[[');
       $interpolateProvider.endSymbol(']]');
@@ -50,22 +53,22 @@
       fetchUsers()
 
       function createProduct (id) {
-        $http.post(mainApiUrl, vm.product)
+        $http.post(window.globals.mainApiUrl + '/users/' + id + '/products/', vm.product)
           .then(function (response) {
             vm.product = {}
           })
       }
 
       function showDetails (id) {
-        $http.get(mainApiUrl + id)
-        .then(function (response) {
-          vm.isDetailVisible = true
-          vm.selectedUser = response.data
-        })
+        $http.get(window.globals.mainApiUrl + '/users/' + id)
+          .then(function (response) {
+            vm.isDetailVisible = true
+            vm.selectedUser = response.data
+          })
       }
 
       function fetchUsers () {
-        $http.get(mainApiUrl)
+        $http.get(window.globals.mainApiUrl + '/users')
           .then(function (response) {
             vm.users = response.data
           })

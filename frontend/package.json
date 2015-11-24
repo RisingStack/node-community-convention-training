@@ -22,6 +22,7 @@
     "eslint": "^1.1.0"
   },
   "dependencies": {
+    "jsonwebtoken": "5.4.1",
     "koa": "^0.21.0",
     "koa-handlebars": "^0.5.7",
     "koa-router": "^5.1.2",

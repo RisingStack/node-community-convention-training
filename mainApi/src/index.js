@@ -1,11 +1,10 @@
 const koa = require('koa')
-const request = require('superagent')
-
+const router = require('./router')
+const logger = require('winston')
+const config = require('./config')
 const app = koa()
 
-const router = require('koa-router')()
-router.get('/', function * (next) {
-}
-
 app.use(router.routes())
-app.listen(3000)
+app.listen(config.port, () => {
+  logger.info('app is listening on port:', config.port)
+})

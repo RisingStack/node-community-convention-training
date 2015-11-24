@@ -2,8 +2,14 @@ const Koa = require('koa')
 const handlebars = require('koa-handlebars')
 const Router = require('koa-router')
 const logger = require('winston')
-
+const jwt = require('jsonwebtoken')
 const config = require('../config')
+
+function encode (payload) {
+  return jwt.sign(payload, config.jwtSecret, {
+    expiresIn: 999
+  })
+}
 
 const app = new Koa()
 app.use(handlebars({
@@ -16,12 +22,14 @@ const router = new Router()
 router.get('/', function * () {
   yield this.render('user', {
     mainApiUrl: config.mainApiUrl,
-    token: 'aaaba2b2ba2b4b4b2b2b12b3b512b'
+    token: encode({
+      id: 123
+    })
   })
 })
 
 app.use(router.routes())
 
-app.listen(config.port, function () {
+app.listen(config.port, () => {
   logger.info('app is listening on port:', config.port)
 })
