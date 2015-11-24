@@ -1,0 +1,74 @@
+{{!< layout/default}}
+<div data-ng-controller="MainCtrl as ctrl" class="container">
+  <table>
+    <th>Name</th>
+    <tr data-ng-repeat="user in ctrl.users">
+      <td>
+        <div>[[user.name]] <button ng-click="ctrl.showDetails(user._id)">Details</button></div>
+      </td>
+    </tr>
+  </table>
+  <div data-ng-hide="!ctrl.isDetailVisible">
+    <ul>
+      <li>[[ctrl.selectedUser.name]]</li>
+      <li>[[ctrl.selectedUser.email]]</li>
+    </ul>
+    <form>
+      <div>
+        <label for="name">Name</label>
+        <input data-ng-model="ctrl.product.name" name="name" type="text">
+      </div>
+      <div>
+        <label for="color">Color</label>
+        <input data-ng-model="ctrl.product.color" name="color" type="text">
+      </div>
+      <div>
+        <label for="price">Price</label>
+        <input data-ng-model="ctrl.product.price" name="price" type="text">
+      </div>
+      <button data-ng-click="ctrl.createProduct(ctrl.selectedUser._id)">Create
+        Product</button>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var mainApiUrl = 'http://localhost:6647/'
+  angular
+    .module('myApp', [])
+    .config(function($interpolateProvider) {
+      $interpolateProvider.startSymbol('[[');
+      $interpolateProvider.endSymbol(']]');
+    })
+    .controller('MainCtrl', function ($window, $http, $scope) {
+      var vm = this
+      vm.showDetails = showDetails
+      vm.createProduct = createProduct
+      vm.isDetailVisible = false
+      vm.product = {}
+
+      fetchUsers()
+
+      function createProduct (id) {
+        $http.post(mainApiUrl, vm.product)
+          .then(function (response) {
+            vm.product = {}
+          })
+      }
+
+      function showDetails (id) {
+        $http.get(mainApiUrl + id)
+        .then(function (response) {
+          vm.isDetailVisible = true
+          vm.selectedUser = response.data
+        })
+      }
+
+      function fetchUsers () {
+        $http.get(mainApiUrl)
+          .then(function (response) {
+            vm.users = response.data
+          })
+      }
+    })
+</script>
