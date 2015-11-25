@@ -1,5 +1,5 @@
 const koa = require('koa')
-const router = require('./router')
+const router = require('./routes')
 const logger = require('winston')
 const config = require('../config')
 const app = koa()
