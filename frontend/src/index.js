@@ -18,12 +18,26 @@ app.use(handlebars({
   viewsDir: 'src/views'
 }))
 
+app.use(function * verifySignature (next) {
+  const substring = this.url.substring(0, this.url.indexOf('signature') - 1)
+  const result = new Buffer(substring).toString('base64')
+
+  if (this.query.signature !== result) {
+    this.body = {
+      message: 'Unauthorized!'
+    }
+    this.status = 401
+    return
+  }
+  yield next
+})
+
 const router = new Router()
 router.get('/', function * () {
   yield this.render('user', {
     mainApiUrl: config.mainApiUrl,
     token: encode({
-      id: 123
+      id: this.query.user
     })
   })
 })
