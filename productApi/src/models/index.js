@@ -10,5 +10,5 @@ var Product = require('./product')(connection)
 
 module.exports = {
   Product,
-  sync: connection.sync
+  connection: connection
 }
