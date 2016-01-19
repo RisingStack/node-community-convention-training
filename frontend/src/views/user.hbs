@@ -26,8 +26,9 @@
         <label for="price">Price</label>
         <input data-ng-model="ctrl.product.price" name="price" type="text">
       </div>
-      <button data-ng-click="ctrl.createProduct(ctrl.selectedUser._id)">Create
-        Product</button>
+      <button data-ng-click="ctrl.createProduct(ctrl.selectedUser._id)">
+        Create Product
+      </button>
     </form>
   </div>
 </div>
@@ -36,8 +37,7 @@
   angular
     .module('myApp', [])
     .run(function($http) {
-      $http.defaults.headers.common.Authorization = 'Bearer ' +
-        window.globals.token
+      $http.defaults.headers.common.Authorization = 'Bearer ' + window.globals.token
     })
     .config(function($interpolateProvider) {
       $interpolateProvider.startSymbol('[[');
