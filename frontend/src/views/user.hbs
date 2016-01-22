@@ -1,6 +1,6 @@
 {{!< layout/default}}
 <div data-ng-controller="MainCtrl as ctrl" class="container">
-  <table>
+  <table data-ng-if="ctrl.users.length">
     <th>Name</th>
     <tr data-ng-repeat="user in ctrl.users">
       <td>
