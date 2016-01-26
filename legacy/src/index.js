@@ -4,6 +4,8 @@ const Router = require('koa-router')
 const logger = require('winston')
 const config = require('../config')
 
+logger.level = config.logLevel
+
 const app = new Koa()
 app.use(handlebars({
   defaultLayout: 'main.hbs',
@@ -13,12 +15,12 @@ app.use(handlebars({
 
 const router = new Router()
 router.get('/', function * () {
-  const signatureData = '/?user=123'
-  const result = new Buffer(signatureData).toString('base64')
-  const url = `${signatureData}&signature=${result}`
+  logger.silly('signature is not implemented')
+  const url = '/?user=123'
 
   yield this.render('newFeature', {
-    frontendApiUrl: config.frontendApiUrl + url
+    frontendApiUrl: config.frontendApiUrl + url,
+    token: 'token'
   })
 })
 

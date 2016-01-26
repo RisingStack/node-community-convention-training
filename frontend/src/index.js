@@ -1,14 +1,14 @@
+'use strict'
+
 const Koa = require('koa')
-const handlebars = require('koa-handlebars')
 const Router = require('koa-router')
-const logger = require('winston')
-const jwt = require('jsonwebtoken')
 const config = require('../config')
+const handlebars = require('koa-handlebars')
+const jwt = require('jsonwebtoken')
+const logger = require('winston')
 
 function encode (payload) {
-  return jwt.sign(payload, config.jwtSecret, {
-    expiresIn: 999
-  })
+  return 'not implemented'
 }
 
 const app = new Koa()
@@ -19,26 +19,14 @@ app.use(handlebars({
 }))
 
 app.use(function * verifySignature (next) {
-  const substring = this.url.substring(0, this.url.indexOf('signature') - 1)
-  const result = new Buffer(substring).toString('base64')
-
-  if (this.query.signature !== result) {
-    this.body = {
-      message: 'Unauthorized!'
-    }
-    this.status = 401
-    return
-  }
+  logger.silly('signature is not yet implemented')
   yield next
 })
 
 const router = new Router()
 router.get('/', function * () {
   yield this.render('user', {
-    mainApiUrl: config.mainApiUrl,
-    token: encode({
-      id: this.query.user
-    })
+    mainApiUrl: config.mainApiUrl
   })
 })
 

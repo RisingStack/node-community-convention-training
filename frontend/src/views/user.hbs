@@ -37,7 +37,7 @@
   angular
     .module('myApp', [])
     .run(function($http) {
-      $http.defaults.headers.common.Authorization = 'Bearer ' + window.globals.token
+      $http.defaults.headers.common.Authorization = 'Bearer ' + globals.token
     })
     .config(function($interpolateProvider) {
       $interpolateProvider.startSymbol('[[');
