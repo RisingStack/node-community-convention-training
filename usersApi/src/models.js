@@ -1,5 +1,9 @@
+'use strict'
+
 const mongoose = require('mongoose')
-const db = mongoose.createConnection('mongodb://localhost/users')
+const config = require('../config')
+
+const db = mongoose.createConnection(config.mongodbUri)
 
 const User = db.model('User', {
   name: String,

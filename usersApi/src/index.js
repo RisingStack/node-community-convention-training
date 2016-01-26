@@ -4,7 +4,7 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const logger = require('winston')
 
-const config = require('./config')
+const config = require('../config')
 const router = require('./routes')
 
 const app = new Koa()
