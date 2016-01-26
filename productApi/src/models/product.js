@@ -5,6 +5,9 @@ function define (connection) {
     name: {
       type: Sequelize.STRING
     },
+    userId: {
+      type: Sequelize.STRING
+    },
     color: {
       type: Sequelize.STRING
     },
